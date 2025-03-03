@@ -4,7 +4,7 @@
   "description": "Identifica partidos corruptos españoles y los destaca.",
   "version": "1.0",
   "icons": {
-    "512": "icons/icon512.png"
+    "512": "icons/icon512_2.png"
   },
   "permissions": [
     "activeTab",
@@ -20,6 +20,23 @@
       ],
       "css": [
         "styles.css"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "512": "icons/icon512_2.png"
+    },
+    "default_title": "POLITIK"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*"
+      ],
+      "matches": [
+        "<all_urls>"
       ]
     }
   ]
