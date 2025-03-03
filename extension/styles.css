@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'title';
+  src: url('./fonts/Null-Normal.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.politka-highlight {
+  background-color: #c8373780;
+  color: inherit; /* Use the original text color for readability */
+  border-bottom: 2px solid #c83737;
+  position: relative;
+  cursor: help;
+  padding: 0 1px;
+  font-weight: normal; /* Keep original font weight for readability */
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.politka-highlight:hover {
+  background-color: #c8373780;
+}
+
+
+
+#politka-tooltip {
+  position: absolute;
+  z-index: 9999;
+  background-color: #231f20;
+  color: #ffffff;
+  border: 2px solid #c83737;
+  border-radius: 3px;
+  padding: 10px 15px;
+  max-width: 300px;
+  font-family: 'title', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+/* Soviet-style header in the tooltip */
+#politka-tooltip::before {
+  content: "- STATUS -";
+  color: #c83737;
+  font-family: 'title', 'Arial', sans-serif;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #c83737;
+  padding-bottom: 5px;
+  text-align: center;
+}
