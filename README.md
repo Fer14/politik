@@ -27,5 +27,5 @@ This extension is intended for educational and informational purposes only. The 
 
 
 <p align="center">
-  <img src="image.png" alt="Alt text">
+  <img src="screenshot.png" alt="Alt text">
 </p>
