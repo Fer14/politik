@@ -32,6 +32,6 @@ Contributions are welcome! If you have any suggestions or improvements, please o
 This extension is intended for educational and informational purposes only. The descriptions provided in the database are for illustrative purposes and do not reflect the views of the author or contributors
 
 
-<p align="center">
-  <img src="screenshot.png" alt="Alt text">
-</p>
+
+
+![alt text](screenshot.png)
