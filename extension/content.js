@@ -7,72 +7,10 @@
     "PODEMOS" : "Corruptos"
   };
 
-  // Create a flag to track extension state
-  let isExtensionEnabled = true;
-
-  // Function to save extension state
-  function saveExtensionState(state) {
-    chrome.storage.sync.set({ 'extensionEnabled': state });
-  }
-
-  // Function to load extension state
-  function loadExtensionState(callback) {
-    chrome.storage.sync.get(['extensionEnabled'], function(result) {
-      // Default to true if no saved state exists
-      isExtensionEnabled = result.extensionEnabled !== undefined 
-        ? result.extensionEnabled 
-        : true;
-      callback(isExtensionEnabled);
-    });
-  }
-
-  // Function to toggle extension state
-  function toggleExtension() {
-    isExtensionEnabled = !isExtensionEnabled;
-    saveExtensionState(isExtensionEnabled);
-    
-    if (isExtensionEnabled) {
-      // Re-scan and highlight document
-      scanAndHighlightDocument();
-    } else {
-      // Remove all highlights
-      removeHighlights();
-    }
-
-    // Send message to popup to update toggle state
-    chrome.runtime.sendMessage({ 
-      action: 'updateToggleState', 
-      enabled: isExtensionEnabled 
-    });
-  }
-
-  // Function to remove all highlights
-  function removeHighlights() {
-    const highlightedElements = document.querySelectorAll('.politka-highlight');
-    highlightedElements.forEach(element => {
-      const textNode = document.createTextNode(element.textContent);
-      element.parentNode.replaceChild(textNode, element);
-    });
-
-    // Remove tooltip
-    const tooltip = document.getElementById('politka-tooltip');
-    if (tooltip) {
-      tooltip.remove();
-    }
-  }
-
   // Function to find and highlight all occurrences of politicians' names in the document
   function scanAndHighlightDocument() {
-    // Remove any existing highlights first
-    removeHighlights();
-
-    // If extension is disabled, do nothing
-    if (!isExtensionEnabled) return;
-
     // Create an observer to monitor DOM changes
     const observer = new MutationObserver(function(mutations) {
-      if (!isExtensionEnabled) return;
-      
       mutations.forEach(function(mutation) {
         if (mutation.addedNodes.length) {
           Array.from(mutation.addedNodes).forEach(node => {
@@ -92,16 +30,10 @@
 
     // Process the initial document
     processElement(document.documentElement);
-
-    // Recreate tooltip elements
-    createTooltipElements();
   }
 
   // Process a DOM element and its children
   function processElement(element) {
-    // If extension is disabled, do nothing
-    if (!isExtensionEnabled) return;
-
     // Skip script and style elements
     if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE' || 
         element.classList.contains('politka-highlight') || 
@@ -204,12 +136,6 @@
 
   // Create tooltip elements
   function createTooltipElements() {
-    // Remove existing tooltip if it exists
-    const existingTooltip = document.getElementById('politka-tooltip');
-    if (existingTooltip) {
-      existingTooltip.remove();
-    }
-
     const tooltipContainer = document.createElement('div');
     tooltipContainer.id = 'politka-tooltip';
     tooltipContainer.style.display = 'none';
@@ -242,21 +168,7 @@
     });
   }
 
-  // Listen for messages from the popup
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === 'toggleExtension') {
-      toggleExtension();
-      sendResponse({ enabled: isExtensionEnabled });
-    } else if (request.action === 'getExtensionState') {
-      sendResponse({ enabled: isExtensionEnabled });
-    }
-  });
-
-  // Initialize the extension
-  loadExtensionState(function(enabled) {
-    if (enabled) {
-      createTooltipElements();
-      scanAndHighlightDocument();
-    }
-  });
+  // Run the main functions
+  createTooltipElements();
+  scanAndHighlightDocument();
 })();
