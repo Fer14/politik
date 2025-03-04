@@ -14,7 +14,11 @@ The **POLITIK** Extension is a browser extension designed to highlight and provi
 - ```Real-Time Updates```: The extension uses a MutationObserver to monitor changes in the DOM, ensuring that any dynamically loaded content is also scanned and highligh
 
 <p align="center">
-  <img src="status.png" alt="Alt text">
+  
+
+https://github.com/user-attachments/assets/559b2a7e-aafa-439e-9e41-a4d3fd3d879c
+
+
 </p>
 
 ## Contributing
