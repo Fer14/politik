@@ -10,12 +10,11 @@
   background-color: #c8373780;
   color: inherit; /* Use the original text color for readability */
   position: relative;
-  cursor: help;
   padding: 0 1px;
-  font-weight: normal; /* Keep original font weight for readability */
+  font-weight: bold; /* Keep original font weight for readability */
   text-decoration: none;
   transition: background-color 0.2s ease;
-}
+  cursor: url('chrome-extension://__MSG_@@extension_id__/icons/cursor.png'), auto !important;}
 
 .politka-highlight:hover {
   background-color: #c8373780;

@@ -33,7 +33,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "fonts/*"
+        "fonts/*",
+        "icons/*"
       ],
       "matches": [
         "<all_urls>"
