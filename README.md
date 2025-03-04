@@ -16,7 +16,9 @@ The **POLITIK** Extension is a browser extension designed to highlight and provi
 <p align="center">
   
 
-https://github.com/user-attachments/assets/559b2a7e-aafa-439e-9e41-a4d3fd3d879c
+
+https://github.com/user-attachments/assets/e393fb89-de3b-46a5-9bb0-adeab87b0760
+
 
 
 </p>
