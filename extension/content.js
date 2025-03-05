@@ -119,6 +119,7 @@
           //   console.log(`Found "Vox" politician in element with tag: ${element.tagName}`,node.parentElement.outerHTML);
 
           // }
+          onPartyEncountered(politician);
           //console.log(encounteredParties)
           // Split text by politician name (preserving case)
           const parts = [];
@@ -165,7 +166,7 @@
               span.setAttribute('data-description', corruptParties[part.politician]);
               span.textContent = part.text;
               fragment.appendChild(span);
-              onPartyEncountered(politician);
+
             } else {
               fragment.appendChild(document.createTextNode(part.text));
             }
