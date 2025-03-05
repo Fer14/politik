@@ -8,33 +8,64 @@
     "PODEMOS" : "Corruptos"
   };
 
+  let isHighlightingEnabled = true;
+
   // Function to find and highlight all occurrences of politicians' names in the document
   function scanAndHighlightDocument() {
-    // Create an observer to monitor DOM changes
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.addedNodes.length) {
-          Array.from(mutation.addedNodes).forEach(node => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              processElement(node);
+    // Check if highlighting is enabled
+    chrome.storage.sync.get('highlightingEnabled', function(data) {
+      isHighlightingEnabled = data.highlightingEnabled !== false;
+      
+      // Only process if highlighting is enabled
+      if (isHighlightingEnabled) {
+        // Create an observer to monitor DOM changes
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+              Array.from(mutation.addedNodes).forEach(node => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                  processElement(node);
+                }
+              });
             }
           });
-        }
-      });
+        });
+
+        // Start observing the document
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true
+        });
+
+        // Process the initial document
+        processElement(document.documentElement);
+      } else {
+        // Remove existing highlights if highlighting is disabled
+        removeHighlights();
+      }
+    });
+  }
+
+  // Remove existing highlights
+  function removeHighlights() {
+    const highlights = document.querySelectorAll('.politka-highlight');
+    highlights.forEach(highlight => {
+      const parent = highlight.parentNode;
+      parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
     });
 
-    // Start observing the document
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true
-    });
-
-    // Process the initial document
-    processElement(document.documentElement);
+    // Remove tooltip
+    const tooltip = document.getElementById('politka-tooltip');
+    if (tooltip) {
+      tooltip.remove();
+    }
   }
 
   // Process a DOM element and its children
   function processElement(element) {
+    // Skip if highlighting is disabled
+    if (!isHighlightingEnabled) return;
+
     // Skip script and style elements
     if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE' || 
         element.classList.contains('politka-highlight') || 
@@ -137,6 +168,9 @@
 
   // Create tooltip elements
   function createTooltipElements() {
+    // Skip if highlighting is disabled
+    if (!isHighlightingEnabled) return;
+
     const tooltipContainer = document.createElement('div');
     tooltipContainer.id = 'politka-tooltip';
     tooltipContainer.style.display = 'none';
@@ -169,7 +203,22 @@
     });
   }
 
-  // Run the main functions
+  // Listen for messages from popup to toggle highlighting
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.action === 'toggleHighlighting') {
+      isHighlightingEnabled = request.enabled;
+      if (isHighlightingEnabled) {
+        // Re-run highlighting
+        scanAndHighlightDocument();
+        createTooltipElements();
+      } else {
+        // Remove existing highlights
+        removeHighlights();
+      }
+    }
+  });
+
+  // Initial setup
   createTooltipElements();
   scanAndHighlightDocument();
 })();
