@@ -5,7 +5,8 @@
     "PSOE" : "Corruptos",
     "PP" : "Corruptos",
     "VOX" : "Corruptos",
-    "PODEMOS" : "Corruptos"
+    "PODEMOS" : "Corruptos",
+    "chocolate" : "chocolate"
   };
 
   let isHighlightingEnabled = true;
