@@ -67,9 +67,15 @@
     if (!isHighlightingEnabled) return;
 
     // Skip script and style elements
-    if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE' || 
-        element.classList.contains('politka-highlight') || 
-        element.id === 'politka-tooltip') {
+    if (element.tagName === 'SCRIPT' ||
+      element.parentElement.tagName === 'SCRIPT' ||
+      element.tagName === 'STYLE' ||
+      element.tagName === 'IMG' ||
+      element.tagName === 'SVG' ||
+      element.tagName === 'IFRAME' ||
+      element.tagName === 'CANVAS'  ||
+      element.classList.contains('politka-highlight') || 
+      element.id === 'politka-tooltip') {
       return;
     }
 
@@ -107,6 +113,13 @@
         // Case insensitive search
         const regex = new RegExp(politician, 'gi');
         if (regex.test(content)) {
+          // Add the party to the encountered set
+          // console.log(politician)
+          // if (politician === 'VOX') {
+          //   console.log(`Found "Vox" politician in element with tag: ${element.tagName}`,node.parentElement.outerHTML);
+
+          // }
+          //console.log(encounteredParties)
           // Split text by politician name (preserving case)
           const parts = [];
           let lastIndex = 0;
@@ -152,6 +165,7 @@
               span.setAttribute('data-description', corruptParties[part.politician]);
               span.textContent = part.text;
               fragment.appendChild(span);
+              onPartyEncountered(politician);
             } else {
               fragment.appendChild(document.createTextNode(part.text));
             }
@@ -199,6 +213,17 @@
     document.body.addEventListener('mouseout', function(e) {
       if (e.target.classList.contains('politka-highlight')) {
         tooltipContainer.style.display = 'none';
+      }
+    });
+  }
+
+  function onPartyEncountered(party) {
+    chrome.runtime.sendMessage({
+      action: 'addParty',
+      party: party // The party data to add
+    }, (response) => {
+      if (response && response.success) {
+        console.log("Party added to global state", party);
       }
     });
   }
