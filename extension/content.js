@@ -2,12 +2,7 @@
   // Database of corrupt Spanish politicians with their descriptions
   const corruptParties = {
     "POLITICAL PARTY": "X Corruption Cases",
-    "PSOE" : "Corruptos",
-    "PP" : "Corruptos",
-    "VOX" : "Corruptos",
-    "PODEMOS" : "Corruptos",
-    "chocolate" : "chocolate",
-    "test" : "test"
+
   };
 
   let isHighlightingEnabled = true;
