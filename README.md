@@ -13,15 +13,11 @@ The **POLITIK** Extension is a browser extension designed to highlight and provi
 
 - ```Real-Time Updates```: The extension uses a MutationObserver to monitor changes in the DOM, ensuring that any dynamically loaded content is also scanned and highligh
 
-<p align="center">
-  
+- ```Daily Corruption Counter```: Tracks and displays the number of corrupt political parties encountered during navigation, providing users with a daily count.
+
+https://github.com/user-attachments/assets/da4fed77-e269-4885-9a17-1299c6096500
 
 
-https://github.com/user-attachments/assets/e393fb89-de3b-46a5-9bb0-adeab87b0760
-
-
-
-</p>
 
 ## Contributing
 
