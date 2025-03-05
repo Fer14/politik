@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log("Global party count:", response.count);
           // Update the UI with the count
           if (partyCountElement) {
-            partyCountElement.textContent = `Number of parties encountered: ${response.count}`;
+            partyCountElement.textContent = `${response.count}`;
           }
           else{
             console.log("No party count found")

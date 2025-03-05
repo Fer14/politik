@@ -6,7 +6,8 @@
     "PP" : "Corruptos",
     "VOX" : "Corruptos",
     "PODEMOS" : "Corruptos",
-    "chocolate" : "chocolate"
+    "chocolate" : "chocolate",
+    "test" : "test"
   };
 
   let isHighlightingEnabled = true;
@@ -47,6 +48,10 @@
     });
   }
 
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
   // Remove existing highlights
   function removeHighlights() {
     const highlights = document.querySelectorAll('.politka-highlight');
@@ -69,7 +74,7 @@
 
     // Skip script and style elements
     if (element.tagName === 'SCRIPT' ||
-      element.parentElement.tagName === 'SCRIPT' ||
+      (element.parentElement && element.parentElement.tagName === 'SCRIPT') ||
       element.tagName === 'STYLE' ||
       element.tagName === 'IMG' ||
       element.tagName === 'SVG' ||
@@ -112,7 +117,7 @@
       
       for (const politician in corruptParties) {
         // Case insensitive search
-        const regex = new RegExp(politician, 'gi');
+        const regex = new RegExp(`\\b${escapeRegExp(politician)}\\b`, 'gi');
         if (regex.test(content)) {
           // Add the party to the encountered set
           // console.log(politician)

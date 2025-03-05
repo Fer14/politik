@@ -107,16 +107,17 @@
         input:checked + .slider:before {
             transform: translateX(26px);
         }
+        #party-count {
+            font-family: 'title', 'Arial', sans-serif;
+            font-size: large;
+            color: #c83737;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo-container">
             <img src="./logos/logo.png" alt="logo">
-        </div>
-        <div class="divider"></div>
-        <div class="description">
-            The <span class="highlight title">POLITIK</span> Extension is a browser extension designed to highlight and provide descriptions for the names of specific Spanish political parties that are listed in a predefined database. The extension scans the content of web pages, identifies the names of these parties, and highlights them. When users hover over the highlighted names, a tooltip appears displaying a description associated with the party.
         </div>
         <div class="toggle-container">
             <span>Activate Highlighting</span>
@@ -126,10 +127,14 @@
             </label>
         </div>
         <div class="divider"></div>
+        <div class="description">
+            The <span class="highlight title">POLITIK</span> Extension is a browser extension designed to highlight and provide descriptions for the names of specific Spanish political parties that are listed in a predefined database. The extension scans the content of web pages, identifies the names of these parties, and highlights them. When users hover over the highlighted names, a tooltip appears displaying a description associated with the party.
+        </div>
+        <div class="divider"></div>
+        <p>Number of corrupted parties encountered today: <span id="party-count">0</span></p>
         <div class="footer">
             © 2025 POLITIK - Highlighting Corruption
         </div>
-        <p id="party-count">Number of parties encountered today: 0</p>
     </div>
 
     <script src="popup.js"></script>
