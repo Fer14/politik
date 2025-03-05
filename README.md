@@ -17,7 +17,9 @@ The **POLITIK** Extension is a browser extension designed to highlight and provi
 
 https://github.com/user-attachments/assets/da4fed77-e269-4885-9a17-1299c6096500
 
+## Instalation
 
+Soon on Chrome Web Store!
 
 ## Contributing
 
